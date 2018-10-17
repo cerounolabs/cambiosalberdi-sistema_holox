@@ -293,214 +293,206 @@
 ?>
 
 <?php
-  $BanDolarComp05 = 1;
-  $BanRealComp05  = 1;
-  $BanPesoComp05  = 1;
-  $BanEuroComp05  = 1;
+  $banDolarComBB05 = 1;
+  $banRealComBB05  = 1;
+  $banPesoComBB05  = 1;
+  $banEuroComBB05  = 1;
 
-  $BanDolarVent05 = 1;
-  $BanRealVent05  = 1;
-  $BanPesoVent05  = 1;
-  $BanEuroVent05  = 1;
+  $banDolarVenBB05 = 1;
+  $banRealVenBB05  = 1;
+  $banPesoVenBB05  = 1;
+  $banEuroVenBB05  = 1;
 
-  $ConDolarComp05 = 1;
-  $ConRealComp05  = 1;
-  $ConPesoComp05  = 1;
-  $ConEuroComp05  = 1;
+  $minDolarComBB05 = 0;
+  $minRealComBB05  = 0;
+  $minPesoComBB05  = 0;
+  $minEuroComBB05  = 0;
 
-  $ConDolarVent05 = 1;
-  $ConRealVent05  = 1;
-  $ConPesoVent05  = 1;
-  $ConEuroVent05  = 1;
+  $minDolarVenBB05 = 0;
+  $minRealVenBB05  = 0;
+  $minPesoVenBB05  = 0;
+  $minEuroVenBB05  = 0;
 
-  $minDolarComp05 = 0;
-  $minRealComp05  = 0;
-  $minPesoComp05  = 0;
-  $minEuroComp05  = 0;
+  $maxDolarComBB05 = 0;
+  $maxRealComBB05  = 0;
+  $maxPesoComBB05  = 0;
+  $maxEuroComBB05  = 0;
 
-  $minDolarVent05 = 0;
-  $minRealVent05  = 0;
-  $minPesoVent05  = 0;
-  $minEuroVent05  = 0;
+  $maxDolarVenBB05 = 0;
+  $maxRealVenBB05  = 0;
+  $maxPesoVenBB05  = 0;
+  $maxEuroVenBB05  = 0;
 
-  $maxDolarComp05 = 0;
-  $maxRealComp05  = 0;
-  $maxPesoComp05  = 0;
-  $maxEuroComp05  = 0;
-
-  $maxDolarVent05 = 0;
-  $maxRealVent05  = 0;
-  $maxPesoVent05  = 0;
-  $maxEuroVent05  = 0;
-
-  $wSQL05     = ibase_query("SELECT t1.ID_TRANSACCION, t1.HORA, t2.TCAMBIOOPERADO, t2.PIZARRA, t2.CODMONEDA, t1.ID_TIPOOPERACION
-                            FROM TRANSACCIONES t1
-                            INNER JOIN TRANSACCIONESDETALLES t2 ON t1.ID_TRANSACCION = t2.ID_TRANSACCION
-                            WHERE t1.FECHATRANSACCION = '$wFecha' AND t1.ESTADO = 'L' AND t2.ID_TIPOESPECIE = 1 AND  t1.ID_TIPOOPERACION IN (1, 2) AND t2.CODMONEDA IN (1, 9)
-                            ORDER BY  t1.ID_TRANSACCION", $db);
+  $wSQL05          = ibase_query("SELECT t1.ID_TRANSACCION, t1.HORA, t2.TCAMBIOOPERADO, t2.PIZARRA, t2.CODMONEDA, t1.ID_TIPOOPERACION
+                                  FROM TRANSACCIONES t1
+                                  INNER JOIN TRANSACCIONESDETALLES t2 ON t1.ID_TRANSACCION = t2.ID_TRANSACCION
+                                  WHERE t1.FECHATRANSACCION = '$wFecha' AND t1.ESTADO = 'L' AND  t1.ID_TIPOOPERACION IN (1, 2) AND t2.ID_TIPOESPECIE = 1  AND t2.CODMONEDA IN (1, 9)
+                                  ORDER BY  t1.ID_TRANSACCION", $db);
 
   while ($row05 = ibase_fetch_row($wSQL05)) {
     if ($row05[5] === 1) {
       switch ($row05[4]) {
         case 1:
-          if ($BanDolarComp05 === 1) {
-            $minDolarComp05         = number_format($row05[2], 0, '.', '');
-            $maxDolarComp05         = number_format($row05[2], 0, '.', '');
+          if ($banDolarComBB05 === 1) {
+            $minDolarComBB05  = number_format($row05[2], 0, '.', '');
+            $maxDolarComBB05  = number_format($row05[2], 0, '.', '');
 
-            if ($minDolarComp05 > number_format($row05[3], 0, '.', '')) {
-              $minDolarComp05 = number_format($row05[3], 0, '.', '');
+            if ($minDolarComBB05 > number_format($row05[3], 0, '.', '')) {
+              $minDolarComBB05 = number_format($row05[3], 0, '.', '');
             }
 
-            if ($maxDolarComp05 < number_format($row05[3], 0, '.', '')) {
-              $maxDolarComp05 = number_format($row05[3], 0, '.', '');
+            if ($maxDolarComBB05 < number_format($row05[3], 0, '.', '')) {
+              $maxDolarComBB05 = number_format($row05[3], 0, '.', '');
             }
 
-            $charDolarCompTit05 = '"'.($row05[0]).'"';
-            $charDolarCompOpe05 = number_format($row05[2], 2, '.', '');
-            $charDolarCompPiz05 = number_format($row05[3], 2, '.', '');
-            $BanDolarComp05     = 0;
+            $opeDolarComBBTit05 = '"'.($row05[0]).'"';
+            $opeDolarComBBOpe05 = number_format($row05[2], 2, '.', '');
+            $opeDolarComBBPiz05 = number_format($row05[3], 2, '.', '');
+            $banDolarComBB05    = 0;
           } else {
-            if ($minDolarComp05 > number_format($row05[2], 0, '.', '')) {
-              $minDolarComp05 = number_format($row05[2], 0, '.', '');
+            if ($minDolarComBB05 > number_format($row05[2], 0, '.', '')) {
+              $minDolarComBB05 = number_format($row05[2], 0, '.', '');
             }
     
-            if ($minDolarComp05 > number_format($row05[3], 0, '.', '')) {
-              $minDolarComp05 = number_format($row05[3], 0, '.', '');
+            if ($minDolarComBB05 > number_format($row05[3], 0, '.', '')) {
+              $minDolarComBB05 = number_format($row05[3], 0, '.', '');
             }
               
-            if ($maxDolarComp05 < number_format($row05[2], 0, '.', '')) {
-              $maxDolarComp05 = number_format($row05[2], 0, '.', '');
+            if ($maxDolarComBB05 < number_format($row05[2], 0, '.', '')) {
+              $maxDolarComBB05 = number_format($row05[2], 0, '.', '');
             }
     
-            if ($maxDolarComp05 < number_format($row05[3], 0, '.', '')) {
-              $maxDolarComp05 = number_format($row05[3], 0, '.', '');
+            if ($maxDolarComBB05 < number_format($row05[3], 0, '.', '')) {
+              $maxDolarComBB05 = number_format($row05[3], 0, '.', '');
             }
 
-            $charDolarCompTit05 = $charDolarCompTit05.', "'.($row05[0]).'"';
-            $charDolarCompOpe05 = $charDolarCompOpe05.', '.number_format($row05[2], 2, '.', '');
-            $charDolarCompPiz05 = $charDolarCompPiz05.', '.number_format($row05[3], 2, '.', '');
+            $opeDolarComBBTit05 = $opeDolarComBBTit05.', "'.($row05[0]).'"';
+            $opeDolarComBBOpe05 = $opeDolarComBBOpe05.', '.number_format($row05[2], 2, '.', '');
+            $opeDolarComBBPiz05 = $opeDolarComBBPiz05.', '.number_format($row05[3], 2, '.', '');
           }
           break;
 
         case 9:
-          if ($BanRealComp05 === 1) {
-            $minRealComp05         = number_format($row05[2], 0, '.', '');
-            $maxRealComp05         = number_format($row05[2], 0, '.', '');
+          if ($banRealComBB05 === 1) {
+            $minRealComBB05 = number_format($row05[2], 0, '.', '');
+            $maxRealComBB05 = number_format($row05[2], 0, '.', '');
 
-            if ($minRealComp05 > number_format($row05[3], 0, '.', '')) {
-              $minRealComp05 = number_format($row05[3], 0, '.', '');
+            if ($minRealComBB05 > number_format($row05[3], 0, '.', '')) {
+              $minRealComBB05 = number_format($row05[3], 0, '.', '');
             }
 
-            if ($maxRealComp05 < number_format($row05[3], 0, '.', '')) {
-              $maxRealComp05 = number_format($row05[3], 0, '.', '');
+            if ($maxRealComBB05 < number_format($row05[3], 0, '.', '')) {
+              $maxRealComBB05 = number_format($row05[3], 0, '.', '');
             }
 
-            $charRealCompTit05 = '"'.($row05[0]).'"';
-            $charRealCompOpe05 = number_format($row05[2], 2, '.', '');
-            $charRealCompPiz05 = number_format($row05[3], 2, '.', '');
-            $BanRealComp05     = 0;
+            $opeRealComBBTit05 = '"'.($row05[0]).'"';
+            $opeRealComBBOpe05 = number_format($row05[2], 2, '.', '');
+            $opeRealComBBPiz05 = number_format($row05[3], 2, '.', '');
+            $banRealComBB05    = 0;
           } else {
-            if ($minRealComp05 > number_format($row05[2], 0, '.', '')) {
-              $minRealComp05 = number_format($row05[2], 0, '.', '');
+            if ($minRealComBB05 > number_format($row05[2], 0, '.', '')) {
+              $minRealComBB05 = number_format($row05[2], 0, '.', '');
             }
     
-            if ($minRealComp05 > number_format($row05[3], 0, '.', '')) {
-              $minRealComp05 = number_format($row05[3], 0, '.', '');
+            if ($minRealComBB05 > number_format($row05[3], 0, '.', '')) {
+              $minRealComBB05 = number_format($row05[3], 0, '.', '');
             }
               
-            if ($maxRealComp05 < number_format($row05[2], 0, '.', '')) {
-              $maxRealComp05 = number_format($row05[2], 0, '.', '');
+            if ($maxRealComBB05 < number_format($row05[2], 0, '.', '')) {
+              $maxRealComBB05 = number_format($row05[2], 0, '.', '');
             }
     
-            if ($maxRealComp05 < number_format($row05[3], 0, '.', '')) {
-              $maxRealComp05 = number_format($row05[3], 0, '.', '');
+            if ($maxRealComBB05 < number_format($row05[3], 0, '.', '')) {
+              $maxRealComBB05 = number_format($row05[3], 0, '.', '');
             }
 
-            $charRealCompTit05 = $charRealCompTit05.', "'.($row05[0]).'"';
-            $charRealCompOpe05 = $charRealCompOpe05.', '.number_format($row05[2], 2, '.', '');
-            $charRealCompPiz05 = $charRealCompPiz05.', '.number_format($row05[3], 2, '.', '');
+            $opeRealComBBTit05 = $opeRealComBBTit05.', "'.($row05[0]).'"';
+            $opeRealComBBOpe05 = $opeRealComBBOpe05.', '.number_format($row05[2], 2, '.', '');
+            $opeRealComBBPiz05 = $opeRealComBBPiz05.', '.number_format($row05[3], 2, '.', '');
           }
           break;
       }
-    } else {
+    }
+
+    if ($row05[5] === 2) {
       switch ($row05[4]) {
         case 1:
-          if ($BanDolarVent05 === 1) {
-            $minDolarVent05         = number_format($row05[2], 0, '.', '');
-            $maxDolarVent05         = number_format($row05[2], 0, '.', '');
+          if ($banDolarVenBB05 === 1) {
+            $minDolarVenBB05  = number_format($row05[2], 0, '.', '');
+            $maxDolarVenBB05  = number_format($row05[2], 0, '.', '');
 
-            if ($minDolarVent05 > number_format($row05[3], 0, '.', '')) {
-              $minDolarVent05 = number_format($row05[3], 0, '.', '');
+            if ($minDolarVenBB05 > number_format($row05[3], 0, '.', '')) {
+              $minDolarVenBB05 = number_format($row05[3], 0, '.', '');
             }
 
-            if ($maxDolarVent05 < number_format($row05[3], 0, '.', '')) {
-              $maxDolarVent05 = number_format($row05[3], 0, '.', '');
+            if ($maxDolarVenBB05 < number_format($row05[3], 0, '.', '')) {
+              $maxDolarVenBB05 = number_format($row05[3], 0, '.', '');
             }
 
-            $charDolarVentTit05 = '"'.($row05[0]).'"';
-            $charDolarVentOpe05 = number_format($row05[2], 2, '.', '');
-            $charDolarVentPiz05 = number_format($row05[3], 2, '.', '');
-            $BanDolarVent05     = 0;
+            $opeDolarVenBBTit05 = '"'.($row05[0]).'"';
+            $opeDolarVenBBOpe05 = number_format($row05[2], 2, '.', '');
+            $opeDolarVenBBPiz05 = number_format($row05[3], 2, '.', '');
+            $banDolarVenBB05    = 0;
           } else {
-            if ($minDolarVent05 > number_format($row05[2], 0, '.', '')) {
-              $minDolarVent05 = number_format($row05[2], 0, '.', '');
+            if ($minDolarVenBB05 > number_format($row05[2], 0, '.', '')) {
+              $minDolarVenBB05 = number_format($row05[2], 0, '.', '');
             }
     
-            if ($minDolarVent05 > number_format($row05[3], 0, '.', '')) {
-              $minDolarVent05 = number_format($row05[3], 0, '.', '');
+            if ($minDolarVenBB05 > number_format($row05[3], 0, '.', '')) {
+              $minDolarVenBB05 = number_format($row05[3], 0, '.', '');
             }
               
-            if ($maxDolarVent05 < number_format($row05[2], 0, '.', '')) {
-              $maxDolarVent05 = number_format($row05[2], 0, '.', '');
+            if ($maxDolarVenBB05 < number_format($row05[2], 0, '.', '')) {
+              $maxDolarVenBB05 = number_format($row05[2], 0, '.', '');
             }
     
-            if ($maxDolarVent05 < number_format($row05[3], 0, '.', '')) {
-              $maxDolarVent05 = number_format($row05[3], 0, '.', '');
+            if ($maxDolarVenBB05 < number_format($row05[3], 0, '.', '')) {
+              $maxDolarVenBB05 = number_format($row05[3], 0, '.', '');
             }
 
-            $charDolarVentTit05 = $charDolarVentTit05.', "'.($row05[0]).'"';
-            $charDolarVentOpe05 = $charDolarVentOpe05.', '.number_format($row05[2], 2, '.', '');
-            $charDolarVentPiz05 = $charDolarVentPiz05.', '.number_format($row05[3], 2, '.', '');
+            $opeDolarVenBBTit05 = $opeDolarVenBBTit05.', "'.($row05[0]).'"';
+            $opeDolarVenBBOpe05 = $opeDolarVenBBOpe05.', '.number_format($row05[2], 2, '.', '');
+            $opeDolarVenBBPiz05 = $opeDolarVenBBPiz05.', '.number_format($row05[3], 2, '.', '');
           }
           break;
 
         case 9:
-          if ($BanRealVent05 === 1) {
-            $minRealVent05         = number_format($row05[2], 0, '.', '');
-            $maxRealVent05         = number_format($row05[2], 0, '.', '');
+          if ($banRealVenBB05 === 1) {
+            $minRealVenBB05 = number_format($row05[2], 0, '.', '');
+            $maxRealVenBB05 = number_format($row05[2], 0, '.', '');
 
-            if ($minRealVent05 > number_format($row05[3], 0, '.', '')) {
-              $minRealVent05 = number_format($row05[3], 0, '.', '');
+            if ($minRealVenBB05 > number_format($row05[3], 0, '.', '')) {
+              $minRealVenBB05 = number_format($row05[3], 0, '.', '');
             }
 
-            if ($maxRealVent05 < number_format($row05[3], 0, '.', '')) {
-              $maxRealVent05 = number_format($row05[3], 0, '.', '');
+            if ($maxRealVenBB05 < number_format($row05[3], 0, '.', '')) {
+              $maxRealVenBB05 = number_format($row05[3], 0, '.', '');
             }
 
-            $charRealVentTit05 = '"'.($row05[0]).'"';
-            $charRealVentOpe05 = number_format($row05[2], 2, '.', '');
-            $charRealVentPiz05 = number_format($row05[3], 2, '.', '');
-            $BanRealVent05     = 0;
+            $opeRealVenBBTit05 = '"'.($row05[0]).'"';
+            $opeRealVenBBOpe05 = number_format($row05[2], 2, '.', '');
+            $opeRealVenBBPiz05 = number_format($row05[3], 2, '.', '');
+            $banRealVenBB05    = 0;
           } else {
-            if ($minRealVent05 > number_format($row05[2], 0, '.', '')) {
-              $minRealVent05 = number_format($row05[2], 0, '.', '');
+            if ($minRealVenBB05 > number_format($row05[2], 0, '.', '')) {
+              $minRealVenBB05 = number_format($row05[2], 0, '.', '');
             }
     
-            if ($minRealVent05 > number_format($row05[3], 0, '.', '')) {
-              $minRealVent05 = number_format($row05[3], 0, '.', '');
+            if ($minRealVenBB05 > number_format($row05[3], 0, '.', '')) {
+              $minRealVenBB05 = number_format($row05[3], 0, '.', '');
             }
               
-            if ($maxRealVent05 < number_format($row05[2], 0, '.', '')) {
-              $maxRealVent05 = number_format($row05[2], 0, '.', '');
+            if ($maxRealVenBB05 < number_format($row05[2], 0, '.', '')) {
+              $maxRealVenBB05 = number_format($row05[2], 0, '.', '');
             }
     
-            if ($maxRealVent05 < number_format($row05[3], 0, '.', '')) {
-              $maxRealVent05 = number_format($row05[3], 0, '.', '');
+            if ($maxRealVenBB05 < number_format($row05[3], 0, '.', '')) {
+              $maxRealVenBB05 = number_format($row05[3], 0, '.', '');
             }
 
-            $charRealVentTit05 = $charRealVentTit05.', "'.($row05[0]).'"';
-            $charRealVentOpe05 = $charRealVentOpe05.', '.number_format($row05[2], 2, '.', '');
-            $charRealVentPiz05 = $charRealVentPiz05.', '.number_format($row05[3], 2, '.', '');
+            $opeRealVenBBTit05 = $opeRealVenBBTit05.', "'.($row05[0]).'"';
+            $opeRealVenBBOpe05 = $opeRealVenBBOpe05.', '.number_format($row05[2], 2, '.', '');
+            $opeRealVenBBPiz05 = $opeRealVenBBPiz05.', '.number_format($row05[3], 2, '.', '');
           }
           break;
       }
@@ -654,6 +646,126 @@
   ibase_free_result($wSQL06);
 ?>
 
+<?php
+  $banRealxDolarComBB07  = 1;
+  $banPesoxDolarComBB07  = 1;
+  $banEuroxDolarComBB07  = 1;
+
+  $banRealxDolarVenBB07  = 1;
+  $banPesoxDolarVenBB07  = 1;
+  $banEuroxDolarVenBB07  = 1;
+
+  $minRealxDolarComBB07  = 0;
+  $minPesoxDolarComBB07  = 0;
+  $minEuroxDolarComBB07  = 0;
+
+  $minRealxDolarVenBB07  = 0;
+  $minPesoxDolarVenBB07  = 0;
+  $minEuroxDolarVenBB07  = 0;
+
+  $maxRealxDolarComBB07  = 0;
+  $maxPesoxDolarComBB07  = 0;
+  $maxEuroxDolarComBB07  = 0;
+
+  $maxRealxDolarVenBB07  = 0;
+  $maxPesoxDolarVenBB07  = 0;
+  $maxEuroxDolarVenBB07  = 0;
+
+  $wSQL07                = ibase_query("SELECT t1.ID_TRANSACCION, t1.HORA, t2.PARIDAD, t2.PIZARRA_PARIDAD, t2.CODMONEDA, t1.ID_TIPOOPERACION
+                                          FROM TRANSACCIONES t1
+                                          INNER JOIN TRANSACCIONESDETALLES t2 ON t1.ID_TRANSACCION = t2.ID_TRANSACCION
+                                          WHERE t1.FECHATRANSACCION = '$wFecha' AND t1.ESTADO = 'L' AND t1.ID_TIPOOPERACION = 3 AND 
+                                          t2.ID_TIPOESPECIE = 1 AND t2.CODMONEDA IN (1, 9) AND t2.OP = 'C'
+                                          ORDER BY  t1.ID_TRANSACCION", $db);
+
+  while ($row07 = ibase_fetch_row($wSQL07)) {
+    if ($row07[5] === 3) {
+      switch ($row07[4]) {
+        case 1:
+          if ($banRealxDolarVenBB07 === 1) {
+            $minRealxDolarVenBB07  = number_format($row07[2], 5, '.', '');
+            $maxRealxDolarVenBB07  = number_format($row07[2], 5, '.', '');
+
+            if ($minRealxDolarVenBB07 > number_format($row07[3], 5, '.', '')) {
+              $minRealxDolarVenBB07 = number_format($row07[3], 5, '.', '');
+            }
+
+            if ($maxRealxDolarVenBB07 < number_format($row07[3], 5, '.', '')) {
+              $maxRealxDolarVenBB07 = number_format($row07[3], 5, '.', '');
+            }
+
+            $opeRealxDolarVenBBTit07 = '"'.($row07[0]).'"';
+            $opeRealxDolarVenBBOpe07 = number_format($row07[2], 5, '.', '');
+            $opeRealxDolarVenBBPiz07 = number_format($row07[3], 5, '.', '');
+            $banRealxDolarVenBB07    = 0;
+          } else {
+            if ($minRealxDolarVenBB07 > number_format($row07[2], 5, '.', '')) {
+              $minRealxDolarVenBB07 = number_format($row07[2], 5, '.', '');
+            }
+    
+            if ($minRealxDolarVenBB07 > number_format($row07[3], 5, '.', '')) {
+              $minRealxDolarVenBB07 = number_format($row07[3], 5, '.', '');
+            }
+              
+            if ($maxRealxDolarVenBB07 < number_format($row07[2], 5, '.', '')) {
+              $maxRealxDolarVenBB07 = number_format($row07[2], 5, '.', '');
+            }
+    
+            if ($maxRealxDolarVenBB07 < number_format($row07[3], 5, '.', '')) {
+              $maxRealxDolarVenBB07 = number_format($row07[3], 5, '.', '');
+            }
+
+            $opeRealxDolarVenBBTit07 = $opeRealxDolarVenBBTit07.', "'.($row07[0]).'"';
+            $opeRealxDolarVenBBOpe07 = $opeRealxDolarVenBBOpe07.', '.number_format($row07[2], 5, '.', '');
+            $opeRealxDolarVenBBPiz07 = $opeRealxDolarVenBBPiz07.', '.number_format($row07[3], 5, '.', '');
+          }
+          break;
+
+        case 9:
+          if ($banRealxDolarComBB07 === 1) {
+            $minRealxDolarComBB07 = number_format($row07[2], 5, '.', '');
+            $maxRealxDolarComBB07 = number_format($row07[2], 5, '.', '');
+
+            if ($minRealxDolarComBB07 > number_format($row07[3], 5, '.', '')) {
+              $minRealxDolarComBB07 = number_format($row07[3], 5, '.', '');
+            }
+
+            if ($maxRealxDolarComBB07 < number_format($row07[3], 5, '.', '')) {
+              $maxRealxDolarComBB07 = number_format($row07[3], 5, '.', '');
+            }
+
+            $opeRealxDolarComBBTit07 = '"'.($row07[0]).'"';
+            $opeRealxDolarComBBOpe07 = number_format($row07[2], 5, '.', '');
+            $opeRealxDolarComBBPiz07 = number_format($row07[3], 5, '.', '');
+            $banRealxDolarComBB07    = 0;
+          } else {
+            if ($minRealxDolarComBB07 > number_format($row07[2], 5, '.', '')) {
+              $minRealxDolarComBB07 = number_format($row07[2], 5, '.', '');
+            }
+    
+            if ($minRealxDolarComBB07 > number_format($row07[3], 5, '.', '')) {
+              $minRealxDolarComBB07 = number_format($row07[3], 5, '.', '');
+            }
+              
+            if ($maxRealxDolarComBB07 < number_format($row07[2], 5, '.', '')) {
+              $maxRealxDolarComBB07 = number_format($row07[2], 5, '.', '');
+            }
+    
+            if ($maxRealxDolarComBB07 < number_format($row07[3], 5, '.', '')) {
+              $maxRealxDolarComBB07 = number_format($row07[3], 5, '.', '');
+            }
+
+            $opeRealxDolarComBBTit07 = $opeRealxDolarComBBTit07.', "'.($row07[0]).'"';
+            $opeRealxDolarComBBOpe07 = $opeRealxDolarComBBOpe07.', '.number_format($row07[2], 5, '.', '');
+            $opeRealxDolarComBBPiz07 = $opeRealxDolarComBBPiz07.', '.number_format($row07[3], 5, '.', '');
+          }
+          break;
+      }
+    }
+  }
+  ibase_free_result($wSQL07);
+?>
+
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -757,7 +869,7 @@
             <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Hist&oacute;rico D&oacute;lar <?php echo $tFecha; ?></h4>
+                  <h4 class="card-title">Cotizaci&oacute;n D&oacute;lar <?php echo $tFecha; ?></h4>
                   <canvas id="historicoDolar" style="height:250px"></canvas>
                 </div>
               </div>
@@ -765,7 +877,7 @@
             <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Hist&oacute;rico Real <?php echo $tFecha; ?></h4>
+                  <h4 class="card-title">Cotizaci&oacute;n Real <?php echo $tFecha; ?></h4>
                   <canvas id="historicoReal" style="height:250px"></canvas>
                 </div>
               </div>
@@ -776,7 +888,7 @@
             <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Hist&oacute;rico Peso <?php echo $tFecha; ?></h4>
+                  <h4 class="card-title">Cotizaci&oacute;n Peso <?php echo $tFecha; ?></h4>
                   <canvas id="historicoPeso" style="height:250px"></canvas>
                 </div>
               </div>
@@ -784,7 +896,7 @@
             <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Hist&oacute;rico Euro <?php echo $tFecha; ?></h4>
+                  <h4 class="card-title">Cotizaci&oacute;n Euro <?php echo $tFecha; ?></h4>
                   <canvas id="historicoEuro" style="height:250px"></canvas>
                 </div>
               </div>
@@ -795,7 +907,7 @@
             <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Hist&oacute;rico D&oacute;lar x Real <?php echo $tFecha; ?></h4>
+                  <h4 class="card-title">Cotizaci&oacute;n D&oacute;lar x Real <?php echo $tFecha; ?></h4>
                   <canvas id="historicoDolarxReal" style="height:250px"></canvas>
                 </div>
               </div>
@@ -803,7 +915,7 @@
             <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Hist&oacute;rico D&oacute;lar x Peso <?php echo $tFecha; ?></h4>
+                  <h4 class="card-title">Cotizaci&oacute;n D&oacute;lar x Peso <?php echo $tFecha; ?></h4>
                   <canvas id="historicoDolarxPeso" style="height:250px"></canvas>
                 </div>
               </div>
@@ -847,6 +959,29 @@
               </div>
             </div>
           </div>
+
+          <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Operaci&oacute;n Real x D&oacute;lar BB <?php echo $tFecha; ?></h4>
+                  <canvas id="operacionRealxDolarCompra" style="height:250px"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Operaci&oacute;n D&oacute;lar x Real BB <?php echo $tFecha; ?></h4>
+                  <canvas id="operacionRealxDolarVenta" style="height:250px"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
         <!-- content-wrapper ends -->
       </div>
@@ -1387,10 +1522,10 @@
         }
 /*-----------------------------------------------------------------*/
         var dataOperacionDolarComp = {
-          labels: [<?php echo $charDolarCompTit05; ?>],
+          labels: [<?php echo $opeDolarComBBTit05; ?>],
           datasets: [{
               label: 'Operación',
-              data: [<?php echo $charDolarCompOpe05; ?>],
+              data: [<?php echo $opeDolarComBBOpe05; ?>],
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)'
               ],
@@ -1402,7 +1537,7 @@
             },
             {
               label: 'Pizarra',
-              data: [<?php echo $charDolarCompPiz05; ?>],
+              data: [<?php echo $opeDolarComBBPiz05; ?>],
               backgroundColor: [
                 'rgba(54, 162, 235, 0.2)'
               ],
@@ -1432,8 +1567,8 @@
                 display: true
               },
               ticks: {
-                min: <?php echo ($minDolarComp05 - 10); ?>,
-                max: <?php echo ($maxDolarComp05 + 10); ?>
+                min: <?php echo ($minDolarComBB05 - 10); ?>,
+                max: <?php echo ($maxDolarComBB05 + 10); ?>
               }
             }]
           }
@@ -1449,10 +1584,10 @@
         }
 /*-----------------------------------------------------------------*/
         var dataOperacionDolarVent = {
-          labels: [<?php echo $charDolarVentTit05; ?>],
+          labels: [<?php echo $opeDolarVenBBTit05; ?>],
           datasets: [{
               label: 'Operación',
-              data: [<?php echo $charDolarVentOpe05; ?>],
+              data: [<?php echo $opeDolarVenBBOpe05; ?>],
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)'
               ],
@@ -1464,7 +1599,7 @@
             },
             {
               label: 'Pizarra',
-              data: [<?php echo $charDolarVentPiz05; ?>],
+              data: [<?php echo $opeDolarVenBBPiz05; ?>],
               backgroundColor: [
                 'rgba(54, 162, 235, 0.2)'
               ],
@@ -1494,8 +1629,8 @@
                 display: true
               },
               ticks: {
-                min: <?php echo ($minDolarVent05 - 10); ?>,
-                max: <?php echo ($maxDolarVent05 + 10); ?>
+                min: <?php echo ($minDolarVenBB05 - 10); ?>,
+                max: <?php echo ($maxDolarVenBB05 + 10); ?>
               }
             }]
           }
@@ -1511,10 +1646,10 @@
         }
 /*-----------------------------------------------------------------*/
         var dataOperacionRealComp = {
-          labels: [<?php echo $charRealCompTit05; ?>],
+          labels: [<?php echo $opeRealComBBTit05; ?>],
           datasets: [{
               label: 'Operación',
-              data: [<?php echo $charRealCompOpe05; ?>],
+              data: [<?php echo $opeRealComBBOpe05; ?>],
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)'
               ],
@@ -1526,7 +1661,7 @@
             },
             {
               label: 'Pizarra',
-              data: [<?php echo $charRealCompPiz05; ?>],
+              data: [<?php echo $opeRealComBBPiz05; ?>],
               backgroundColor: [
                 'rgba(54, 162, 235, 0.2)'
               ],
@@ -1556,8 +1691,8 @@
                 display: true
               },
               ticks: {
-                min: <?php echo ($minRealComp05 - 10); ?>,
-                max: <?php echo ($maxRealComp05 + 10); ?>
+                min: <?php echo ($minRealComBB05 - 10); ?>,
+                max: <?php echo ($maxRealComBB05 + 10); ?>
               }
             }]
           }
@@ -1573,10 +1708,10 @@
         }
 /*-----------------------------------------------------------------*/
         var dataOperacionRealVent = {
-          labels: [<?php echo $charRealVentTit05; ?>],
+          labels: [<?php echo $opeRealVenBBTit05; ?>],
           datasets: [{
               label: 'Operación',
-              data: [<?php echo $charRealVentOpe05; ?>],
+              data: [<?php echo $opeRealVenBBOpe05; ?>],
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)'
               ],
@@ -1588,7 +1723,7 @@
             },
             {
               label: 'Pizarra',
-              data: [<?php echo $charRealVentPiz05; ?>],
+              data: [<?php echo $opeRealVenBBPiz05; ?>],
               backgroundColor: [
                 'rgba(54, 162, 235, 0.2)'
               ],
@@ -1618,8 +1753,8 @@
                 display: true
               },
               ticks: {
-                min: <?php echo ($minRealVent05 - 10); ?>,
-                max: <?php echo ($maxRealVent05 + 10); ?>
+                min: <?php echo ($minRealVenBB05 - 10); ?>,
+                max: <?php echo ($maxRealVenBB05 + 10); ?>
               }
             }]
           }
@@ -1631,6 +1766,130 @@
             type: 'line',
             data: dataOperacionRealVent,
             options: optionsOperacionRealVent
+          });
+        }
+/*-----------------------------------------------------------------*/
+        var dataOperacionRealxDolarComp = {
+          labels: [<?php echo $opeRealxDolarComBBTit07; ?>],
+          datasets: [{
+              label: 'Operación',
+              data: [<?php echo $opeRealxDolarComBBOpe07; ?>],
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)'
+              ],
+              borderColor: [
+                'rgba(255,99,132,1)'
+              ],
+              borderWidth: 2,
+              fill: false
+            },
+            {
+              label: 'Pizarra',
+              data: [<?php echo $opeRealxDolarComBBPiz07; ?>],
+              backgroundColor: [
+                'rgba(54, 162, 235, 0.2)'
+              ],
+              borderColor: [
+                'rgba(54, 162, 235, 1)'
+              ],
+              borderWidth: 2,
+              fill: false
+            }
+          ]
+        };
+
+        var optionsOperacionRealxDolarComp = {
+          plugins: {
+            filler: {
+              propagate: true
+            }
+          },
+          scales: {
+            xAxes: [{
+              gridLines: {
+                display: true
+              }
+            }],
+            yAxes: [{
+              gridLines: {
+                display: true
+              },
+              ticks: {
+                min: <?php echo ($minRealxDolarComBB07 - 0.00100); ?>,
+                max: <?php echo ($maxRealxDolarComBB07 + 0.00100); ?>
+              }
+            }]
+          }
+        };
+
+        if ($("#operacionRealxDolarCompra").length) {
+          var multiLineCanvas = $("#operacionRealxDolarCompra").get(0).getContext("2d");
+          var lineChart = new Chart(multiLineCanvas, {
+            type: 'line',
+            data: dataOperacionRealxDolarComp,
+            options: optionsOperacionRealxDolarComp
+          });
+        }
+/*-----------------------------------------------------------------*/
+        var dataOperacionRealxDolarVent = {
+          labels: [<?php echo $opeRealxDolarVenBBTit07; ?>],
+          datasets: [{
+              label: 'Operación',
+              data: [<?php echo $opeRealxDolarVenBBOpe07; ?>],
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)'
+              ],
+              borderColor: [
+                'rgba(255,99,132,1)'
+              ],
+              borderWidth: 2,
+              fill: false
+            },
+            {
+              label: 'Pizarra',
+              data: [<?php echo $opeRealxDolarVenBBPiz07; ?>],
+              backgroundColor: [
+                'rgba(54, 162, 235, 0.2)'
+              ],
+              borderColor: [
+                'rgba(54, 162, 235, 1)'
+              ],
+              borderWidth: 2,
+              fill: false
+            }
+          ]
+        };
+
+        var optionsOperacionRealxDolarVent = {
+          plugins: {
+            filler: {
+              propagate: true
+            }
+          },
+          scales: {
+            xAxes: [{
+              gridLines: {
+                display: true
+              }
+            }],
+            yAxes: [{
+              gridLines: {
+                display: true
+              },
+              ticks: {
+                min: <?php echo ($minRealxDolarVenBB07 - 0.00100); ?>,
+                max: <?php echo ($maxRealxDolarVenBB07 + 0.00100); ?>
+              }
+            }]
+          }
+        };
+
+        if ($("#operacionRealxDolarVenta").length) {
+          var multiLineCanvas = $("#operacionRealxDolarVenta").get(0).getContext("2d");
+          var lineChart = new Chart(multiLineCanvas, {
+            type: 'line',
+            data: dataOperacionRealxDolarVent,
+            options: optionsOperacionRealxDolarVent
           });
         }
 /*-----------------------------------------------------------------*/
