@@ -5,7 +5,7 @@
   $tFecha     = date('d/m/Y');
   $wHora      = date('H:i:s');
 
-  if (!isset($idSession) || ($wHora < date('18:00:00'))) {
+  if (!isset($idSession) || ($wHora > date('18:00:00'))) {
     unset($idSession);
     header('Location: ../class/logout.php');
   }

@@ -99,5 +99,12 @@
                         <i class="mdi mdi-home menu-icon"></i>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../class/logout.php">
+                        <span class="menu-title">Cerrar Sesi&oacute;n</span>
+                        <i class="mdi mdi-power menu-icon"></i>
+                    </a>
+                </li>
             </ul>
         </nav>
