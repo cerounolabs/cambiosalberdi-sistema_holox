@@ -1,93 +1,69 @@
 <?php
-  include 'incl/sucursal.php';
-  $wFecha = date('Y/m/d');
+  session_start();
+
+  unset($_SESSION['Sys00']);
+  unset($_SESSION['Sys01']);
+  unset($_SESSION['Sys02']);
+  unset($_SESSION['Sys03']);
+
+  session_destroy();
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-<?php
-  include 'incl/head.php';
-?>
 
-  </head>
-  <body>
-    <div class="container-scroller">
-      <div class="container-fluid page-body-wrapper">
-<?php
-  include 'incl/menu.php';
-?>
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Sistema HOLOX</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="images/favicon.png" />
+</head>
 
-      <!-- partial -->
-      <div class="main-panel">
-        <div class="content-wrapper">
-          <div class="row">
-<?php
-  $wSQL01	= ibase_query("SELECT sc.DESCRIPCION, sc.ANTERIOR, sc.COMPRA, sc.VENTA, sc.ACTUAL, sc.ID_COTIZACIONMONEDA
-                          FROM SALDOSCONTABLES sc
-                          WHERE sc.FECHAULTIMOMOVIMIENTO = '$wFecha' AND sc.MOSTRAR = 'S'
-                          ORDER BY 1");
-  while ($row01 = ibase_fetch_row($wSQL01)) {
-    switch ($row01[5]) {
-      case 1:
-        $titEstilo = 'card bg-gradient-info card-img-holder text-white';
-        $titSigno  = '$';
-        break;
-      case 2:
-        $titEstilo = 'card bg-gradient-primary card-img-holder text-white';
-        $titSigno  = 'R$';
-        break;
-      case 7:
-        $titEstilo = 'card bg-gradient-danger card-img-holder text-white';
-        $titSigno  = '₲';
-        break;
-      case 10:
-        $titEstilo = 'card bg-gradient-success card-img-holder text-white';
-        $titSigno  = 'P$';
-        break;
-    }
-
-?>
-            <div class="col-md-3 stretch-card grid-margin">
-              <div class="<?php echo $titEstilo; ?>">
-                <div class="card-body" style="padding: 1.25rem !important;">
-                  <img src="images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
-                  <h3 class="font-weight-normal mb-3">TOTAL <?php echo $row01[0]; ?></h3>
-                  <h1 class="mb-5" style="margin-bottom: 0rem !important;">
-                    ANT:&nbsp;&nbsp;<?php echo $titSigno; ?> <?php echo number_format($row01[1], 0, '', '.'); ?>
-                    <br/><br/>
-                    COM:&nbsp;<?php echo $titSigno; ?> <?php echo number_format($row01[2], 0, '', '.'); ?>
-                    <br/><br/>
-                    VEN:&nbsp;&nbsp;<?php echo $titSigno; ?> <?php echo number_format($row01[3], 0, '', '.'); ?>
-                    <br/><br/>
-                    SAL:&nbsp;&nbsp;&nbsp;<?php echo $titSigno; ?> <?php echo number_format($row01[4], 0, '', '.'); ?>
-                  </h1>
+<body>
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth">
+        <div class="row w-100">
+          <div class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-left p-5">
+              <h1 style="text-align:center;">Cambios Alberdi S.A.</h1>
+              <h3 style="text-align:center;">Bienvenido al Sistema HOLOX</h3>
+              <form class="pt-3" action="class/login.php" method="post">
+                <div class="form-group">
+                  <input type="text" id="userLogin" name="userLogin" class="form-control form-control-lg" style="text-transform:uppercase;" placeholder="Usuario">
                 </div>
-              </div>
+                <div class="form-group">
+                  <input type="password" id="passLogin" name="passLogin" class="form-control form-control-lg" placeholder="Contrase&ntilde;a">
+                </div>
+                <div class="mt-3">
+                  <input type="submit" class="btn btn-block btn-gradient-success btn-lg font-weight-medium auth-form-btn" value="INGRESAR">
+                </div>
+              </form>
             </div>
-<?php
-  }
-?>
           </div>
         </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
-        <footer class="footer">
-          <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2017 <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap Dash</a>. All rights reserved.</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i></span>
-          </div>
-        </footer>
-        <!-- partial -->
       </div>
-      <!-- main-panel ends -->
+      <!-- content-wrapper ends -->
     </div>
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
-
-<?php
-  include 'incl/footer.php';
-?>
+  <!-- plugins:js -->
+  <script src=vendors/js/vendor.bundle.base.js"></script>
+  <script src="vendors/js/vendor.bundle.addons.js"></script>
+  <!-- endinject -->
+  <!-- inject:js -->
+  <script src="js/off-canvas.js"></script>
+  <script src="js/misc.js"></script>
+  <!-- endinject -->
 </body>
 
 </html>
