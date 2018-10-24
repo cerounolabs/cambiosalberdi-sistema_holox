@@ -2,10 +2,11 @@
   session_start();
   $idSession  = $_SESSION['Sys00'];
   $wFecha     = date('Y/m/d');
+  $wFecha2    = date('Y/m/d 23:00:00');
   $tFecha     = date('d/m/Y');
   $wHora      = date('H:i:s');
 
-  if (!isset($idSession) || ($wHora > date('18:00:00'))) {
+  if (!isset($idSession) || ($wHora > date('19:00:00'))) {
     unset($idSession);
     header('Location: ../class/logout.php');
   }

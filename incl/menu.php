@@ -101,6 +101,19 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link" aria-expanded="false" aria-controls="ui-basic">
+                        <span class="menu-title">Operaciones</span>
+                        <i class="menu-arrow"></i>
+                        <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                    </a>
+                    <div class="collapse show">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="../pages/operacion_mejoras.php">Mejoras</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link" href="../class/logout.php">
                         <span class="menu-title">Cerrar Sesi&oacute;n</span>
                         <i class="mdi mdi-power menu-icon"></i>
