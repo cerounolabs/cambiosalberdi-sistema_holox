@@ -108,6 +108,11 @@
                     </a>
                     <div class="collapse show">
                         <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="../pages/operacion_anulacion.php">Anuladas</a></li>
+                        </ul>
+                    </div>
+                    <div class="collapse show">
+                        <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="../pages/operacion_mejoras.php">Mejoras</a></li>
                         </ul>
                     </div>
