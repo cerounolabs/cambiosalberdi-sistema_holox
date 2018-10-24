@@ -511,7 +511,7 @@
                                         INNER JOIN MONEDAS t2 ON t1.ID_MONEDA = t2.ID_MONEDA
                                         INNER JOIN COTIZACIONESMONEDAS t3 ON t1.ID_COTIZACIONMONEDA = t3.ID_COTIZACIONMONEDA
                                         INNER JOIN MONEDAS t4 ON t3.ID_MONEDA = t4.ID_MONEDA
-                                        WHERE ((t4.ID_MONEDA = 6 AND t2.ID_MONEDA = 3) OR (t4.ID_MONEDA = 3 AND t2.ID_MONEDA = 4) OR (t4.ID_MONEDA = 3 AND t2.ID_MONEDA = 5)) AND t1.FECHA = '$wFecha'", $db);
+                                        WHERE ((t4.ID_MONEDA = 6 AND t2.ID_MONEDA = 3) OR (t4.ID_MONEDA = 3 AND t2.ID_MONEDA = 4) OR (t4.ID_MONEDA = 3 AND t2.ID_MONEDA = 5)) AND t1.FECHA >= '$wFecha' AND t1.FECHA < '$wFecha2'", $db);
 
     $wSQL06_1         = ibase_query("SELECT t4.ID_MONEDA, t4.DESCRIPCION, t2.ID_MONEDA, t2.DESCRIPCION, t1.PARIDAD_C, t1.PARIDAD_V
                                         FROM PARIDAD t1
