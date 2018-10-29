@@ -79,7 +79,7 @@
         "CASA MATRIZ"                   => "192.168.0.200:aliadocambios",
         "SUCURSAL VILLA MORRA"          => "10.168.196.130:aliadocambios",
         "AGENCIA SAN LORENZO"           => "10.168.191.130:aliadocambios",
-        "SUCURSAL CIUDAD DEL ESTE"      => "10.168.196.130:aliadocambios",
+        "SUCURSAL CIUDAD DEL ESTE"      => "10.168.192.138:aliadocambios",
         "AGENCIA JEBAI"                 => "10.168.193.130:aliadocambios",
         "AGENCIA LAI LAI"               => "10.168.194.130:aliadocambios",
         "AGENCIA UNIAMERICA"            => "10.168.199.131:aliadocambios",
@@ -129,6 +129,7 @@
                     $monEntImp = number_format($row00[8], 2, ',', '.');
                     $monSalNom = 'GUARANIES';
                     $monSalImp = number_format($row00[9], 0, ',', '.');
+                    $impMejora = $row00[8] * $difMejora;
                     break;
                 
                 case 2:
@@ -138,10 +139,9 @@
                     $monEntImp = number_format($row00[9], 0, ',', '.');
                     $monSalNom = $row00[6];
                     $monSalImp = number_format($row00[8], 2, ',', '.');
+                    $impMejora = $row00[8] * $difMejora;
                     break;
             }
-
-            $impMejora = $row00[10] * $difMejora;
 
             if ($difMejora > 0) {
                 $estMejora = 'text-align:right; background-color:rgba(254, 204, 204, 0.5); color:#990000;';

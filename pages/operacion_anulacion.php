@@ -79,7 +79,7 @@
         "CASA MATRIZ"                   => "192.168.0.200:aliadocambios",
         "SUCURSAL VILLA MORRA"          => "10.168.196.130:aliadocambios",
         "AGENCIA SAN LORENZO"           => "10.168.191.130:aliadocambios",
-        "SUCURSAL CIUDAD DEL ESTE"      => "10.168.196.130:aliadocambios",
+        "SUCURSAL CIUDAD DEL ESTE"      => "10.168.192.138:aliadocambios",
         "AGENCIA JEBAI"                 => "10.168.193.130:aliadocambios",
         "AGENCIA LAI LAI"               => "10.168.194.130:aliadocambios",
         "AGENCIA UNIAMERICA"            => "10.168.199.131:aliadocambios",
