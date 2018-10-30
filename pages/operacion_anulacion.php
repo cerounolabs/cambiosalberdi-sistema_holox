@@ -58,7 +58,7 @@
                                                     <th style="text-align:center;"> FECHA </th>
                                                     <th style="text-align:center;"> HORA </th>
                                                     <th style="text-align:center;"> SUCURSAL </th>
-                                                    <th style="text-align:center;"> BOLETA </th>
+                                                    <th style="text-align:center;"> FACTURA </th>
                                                     <th style="text-align:center;"> TIPO </th>
                                                     <th style="text-align:center;"> MONEDA </th>
                                                     <th style="text-align:center;"> IMPORTE </th>
@@ -95,7 +95,7 @@
         $str_user       = 'sysdba';
         $str_pass       = 'dorotea';
         $str_connect    = ibase_connect($str_db, $str_user, $str_pass) OR DIE("NO SE CONECTO AL SERVIDOR: ".ibase_errmsg());
-        $wSQL00         = ibase_query("SELECT t1.FECHATRANSACCION, t1.HORA, t1.ID_TRANSACCION, t1.ID_TIPOOPERACION, t2.CODMONEDA, t4.DESCRIPCION, t2.ID_TIPOESPECIE, t2.IMPORTEME, t2.IMPORTEMN, t2.IMPORTEMD, t2.TCAMBIOOPERADO, t2.PIZARRA, t5.ID_USUARIO, t5.DESCRIPCION, t1.ID_USUARIO_MODIFICA, t6.DESCRIPCION
+        $wSQL00         = ibase_query("SELECT t1.FECHATRANSACCION, t1.HORA, t1.NRO, t1.ID_TIPOOPERACION, t2.CODMONEDA, t4.DESCRIPCION, t2.ID_TIPOESPECIE, t2.IMPORTEME, t2.IMPORTEMN, t2.IMPORTEMD, t2.TCAMBIOOPERADO, t2.PIZARRA, t5.ID_USUARIO, t5.DESCRIPCION, t1.ID_USUARIO_MODIFICA, t6.DESCRIPCION
                                         FROM TRANSACCIONES t1
                                         INNER JOIN TRANSACCIONESDETALLES t2 ON t1.ID_TRANSACCION = t2.ID_TRANSACCION
                                         INNER JOIN MONEDAS t4 ON t2.CODMONEDA = t4.CODIGO
@@ -104,7 +104,7 @@
                                         WHERE t1.FECHATRANSACCION = '$wFecha' AND t1.ESTADO = 'A' AND  t1.ID_TIPOOPERACION IN (1, 2)  AND t2.ID_TIPOESPECIE = 1
                                         ORDER BY  t1.ID_TIPOOPERACION", $str_connect);
         
-        $wSQL01         = ibase_query("SELECT t1.FECHATRANSACCION, t1.HORA, t1.ID_TRANSACCION, t1.ID_TIPOOPERACION, t2.ID_TIPOESPECIE, t4.CODIGO, t4.DESCRIPCION, t2.IMPORTEME, t2.IMPORTEMN, t2.IMPORTEMD, t7.ID_TIPOESPECIE, t8.CODIGO, t8.DESCRIPCION, t7.IMPORTEME, t7.IMPORTEMN, t7.IMPORTEMD, t2.PARIDAD, t2.PIZARRA_PARIDAD, t5.ID_USUARIO, t5.DESCRIPCION, t1.ID_USUARIO_MODIFICA, t6.DESCRIPCION
+        $wSQL01         = ibase_query("SELECT t1.FECHATRANSACCION, t1.HORA, t1.NRO, t1.ID_TIPOOPERACION, t2.ID_TIPOESPECIE, t4.CODIGO, t4.DESCRIPCION, t2.IMPORTEME, t2.IMPORTEMN, t2.IMPORTEMD, t7.ID_TIPOESPECIE, t8.CODIGO, t8.DESCRIPCION, t7.IMPORTEME, t7.IMPORTEMN, t7.IMPORTEMD, t2.PARIDAD, t2.PIZARRA_PARIDAD, t5.ID_USUARIO, t5.DESCRIPCION, t1.ID_USUARIO_MODIFICA, t6.DESCRIPCION
                                         FROM TRANSACCIONES t1
                                         INNER JOIN TRANSACCIONESDETALLES t2 ON t1.ID_TRANSACCION = t2.ID_TRANSACCION
                                         INNER JOIN MONEDAS t4 ON t2.CODMONEDA = t4.CODIGO
