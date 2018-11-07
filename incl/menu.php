@@ -113,7 +113,25 @@
                     </div>
                     <div class="collapse show">
                         <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="../pages/operacion_duplicada.php">Duplicadas</a></li>
+                        </ul>
+                    </div>
+                    <div class="collapse show">
+                        <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="../pages/operacion_mejoras.php">Mejoras</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" aria-expanded="false" aria-controls="ui-basic">
+                        <span class="menu-title">Personas</span>
+                        <i class="menu-arrow"></i>
+                        <i class="mdi mdi-account menu-icon"></i>
+                    </a>
+                    <div class="collapse show">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="../pages/persona_alta.php">Nuevas</a></li>
                         </ul>
                     </div>
                 </li>

@@ -33,7 +33,7 @@
                                 <span class="page-title-icon bg-gradient-primary text-white mr-2">
                                     <i class="mdi mdi-home"></i>                 
                                 </span>
-                                OPERACIONES CON MEJORAS
+                                OPERACIONES CON VARIACI&Oacute;N
                             </h1>
                         </div>
                         
@@ -46,11 +46,11 @@
                                             <thead>
                                                 <tr valign="middle">
                                                     <th colspan="6" style="text-align:center;"> DETALLE OPERACION </th>
-                                                    <th colspan="2" style="text-align:center;"> ENTRADA</th>
-                                                    <th colspan="2" style="text-align:center;"> SALIDA</th>
+                                                    <th colspan="2" style="text-align:center;"> ENTRADA </th>
+                                                    <th colspan="2" style="text-align:center;"> SALIDA </th>
                                                     <!--<th rowspan="2" style="text-align:center; vertical-align:middle !important;"> IMPORTE DOLARIZADO </th>-->
                                                     <th colspan="2" style="text-align:center;"> COTIZACION </th>
-                                                    <th colspan="2" style="text-align:center;"> DIFERENCIA</th>
+                                                    <th colspan="2" style="text-align:center;"> VARIACI&Oacute;N </th>
                                                     <th colspan="2" style="text-align:center;"> USUARIO </th>
                                                 </tr>
                                                 <tr valign="middle">
@@ -64,7 +64,7 @@
                                                     <th style="text-align:center;"> IMPORTE </th>
                                                     <th style="text-align:center;"> MONEDA </th>
                                                     <th style="text-align:center;"> IMPORTE </th>
-                                                    <th style="text-align:center;"> MEJORA </th>
+                                                    <th style="text-align:center;"> VARIACI&Oacute;N </th>
                                                     <th style="text-align:center;"> PIZARRA </th>
                                                     <th style="text-align:center;"> PUNTOS </th>
                                                     <th style="text-align:center;"> GUARANIES </th>
