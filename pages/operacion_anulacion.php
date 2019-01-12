@@ -115,6 +115,15 @@
                                         WHERE t1.FECHATRANSACCION = '$wFecha' AND t1.ESTADO = 'A' AND  t1.ID_TIPOOPERACION = 3 AND t2.ID_TIPOESPECIE = 1 AND t2.OP = 'C' AND t7.ID_TIPOESPECIE = 1 AND t7.OP = 'V'
                                         ORDER BY  t1.ID_TIPOOPERACION", $str_connect);
 
+        $wSQL02         = ibase_query("SELECT t1.FECHATRANSACCION, t1.HORA, t1.NRO, t1.ID_TIPOOPERACION, t2.CODMONEDA, t4.DESCRIPCION, t2.ID_TIPOESPECIE, t2.IMPORTEME, t2.IMPORTEMN, t2.IMPORTEMD, t2.TCAMBIOOPERADO, t2.PIZARRA, t5.ID_USUARIO, t5.DESCRIPCION, t1.ID_USUARIO_MODIFICA, t6.DESCRIPCION
+                                        FROM TRANSACCIONES t1
+                                        INNER JOIN TRANSACCIONESDETALLES t2 ON t1.ID_TRANSACCION = t2.ID_TRANSACCION
+                                        INNER JOIN MONEDAS t4 ON t2.CODMONEDA = t4.CODIGO
+                                        INNER JOIN USUARIOS t5 ON t1.ID_USUARIO_INSERTA = t5.ID_USUARIO
+                                        INNER JOIN USUARIOS t6 ON t1.ID_USUARIO_MODIFICA = t6.ID_USUARIO
+                                        WHERE t1.FECHATRANSACCION = '$wFecha' AND t1.ESTADO = 'A' AND t2.ID_TIPOESPECIE = 6
+                                        ORDER BY  t1.ID_TIPOOPERACION", $str_connect);
+
         while ($row00 = ibase_fetch_row($wSQL00)) {
             $item      = $item + 1;
             $difMejora = 0;
@@ -207,6 +216,62 @@
                                                     <td style="<?php echo $estMejora; ?>"> <?php echo number_format($impMejora, 5, ',', '.'); ?> </td>
                                                     <td style="text-align:left;"> <?php echo $row01[19]; ?>  </td>
                                                     <td style="text-align:left;"> <?php echo $row01[21]; ?>  </td>
+                                                </tr>
+<?php
+        }
+
+        while ($row02 = ibase_fetch_row($wSQL02)) {
+            $item      = $item + 1;
+            $difMejora = 0;
+            $impMejora = 0;
+            switch ($row02[3]) {
+                case 1:
+                    $tipOper   = 'TRANSFER';
+                    $difMejora = $row02[10] - $row02[11];
+                    $monEntNom = $row02[5];
+                    $monEntImp = number_format($row02[7], 2, ',', '.');
+                    $monSalNom = 'GUARANIES';
+                    $monSalImp = number_format($row02[8], 0, ',', '.');
+                    break;
+                
+                case 2:
+                    $tipOper   = 'TRANSFER';
+                    $difMejora = $row02[11] - $row02[10];
+                    $monEntNom = 'GUARANIES';
+                    $monEntImp = number_format($row02[8], 0, ',', '.');
+                    $monSalNom = $row02[5];
+                    $monSalImp = number_format($row02[7], 2, ',', '.');
+                    break;
+            }
+
+            $impMejora = $row02[9] * $difMejora;
+
+            if ($difMejora > 0) {
+                $estMejora = 'text-align:right; background-color:rgba(254, 204, 204, 0.5); color:#990000;';
+            } else {
+                $estMejora = 'text-align:right; background-color:rgba(204, 255, 204, 0.5); color:#00944C;';
+                $difMejora = $difMejora * -1;
+                $impMejora = $impMejora * -1;
+            }
+?>
+                                                <tr>
+                                                    <td style="text-align:right;"> <?php echo $item; ?> </td>
+                                                    <td style="text-align:left;"> <?php echo $tFecha; ?> </td>
+                                                    <td style="text-align:left;"> <?php echo substr($row02[1], 11, 8); ?> </td>
+                                                    <td style="text-align:left;"> <?php echo $suc_key; ?> </td>
+                                                    <td style="text-align:left;"> <?php echo $row02[2]; ?> </td>
+                                                    <td style="text-align:left;"> <?php echo $tipOper; ?> </td>
+                                                    <td style="text-align:left;"> <?php echo $monEntNom; ?> </td>
+                                                    <td style="text-align:right;"> <?php echo $monEntImp; ?> </td>
+                                                    <td style="text-align:left;"> <?php echo $monSalNom; ?> </td>
+                                                    <td style="text-align:right;"> <?php echo $monSalImp; ?> </td>
+                                                    <!--<td style="text-align:right;"> <?php //echo number_format($row00[9], 5, ',', '.'); ?> </td>-->
+                                                    <td style="text-align:right;"> <?php echo number_format($row02[10], 5, ',', '.'); ?> </td>
+                                                    <td style="text-align:right;"> <?php echo number_format($row02[11], 5, ',', '.'); ?> </td>
+                                                    <td style="<?php echo $estMejora; ?>"> <?php echo number_format($difMejora, 5, ',', '.'); ?> </td>
+                                                    <td style="<?php echo $estMejora; ?>"> <?php echo number_format($impMejora, 5, ',', '.'); ?> </td>
+                                                    <td style="text-align:left;"> <?php echo $row02[13]; ?>  </td>
+                                                    <td style="text-align:left;"> <?php echo $row02[15]; ?>  </td>
                                                 </tr>
 <?php
         }
