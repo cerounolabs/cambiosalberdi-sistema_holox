@@ -58,7 +58,8 @@
                                                     <th style="text-align:center;"> FECHA </th>
                                                     <th style="text-align:center;"> HORA </th>
                                                     <th style="text-align:center;"> SUCURSAL </th>
-                                                    <th style="text-align:center;"> ESTADO </th>
+                                                    <!--<th style="text-align:center;"> ESTADO </th>-->
+                                                    <th style="text-align:center;"> ID </th>
                                                     <th style="text-align:center;"> FACTURA </th>
                                                     <th style="text-align:center;"> TIPO </th>
                                                     <th style="text-align:center;"> MONEDA </th>
@@ -179,7 +180,8 @@
                                                     <td style="text-align:left;"> <?php echo $fecBoleta; ?> </td>
                                                     <td style="text-align:left;"> <?php echo substr($row01[2], 11, 8); ?> </td>
                                                     <td style="text-align:left;"> <?php echo $suc_key; ?> </td>
-                                                    <td style="text-align:left;"> <?php echo $estBoleta; ?> </td>
+                                                    <!--<td style="text-align:left;"> <?php //echo $estBoleta; ?> </td>-->
+                                                    <td style="text-align:left;"> <?php echo $row01[0]; ?> </td>
                                                     <td style="text-align:left;"> <?php echo $row01[3]; ?> </td>
                                                     <td style="text-align:left;"> <?php echo $tipOper; ?> </td>
                                                     <td style="text-align:left;"> <?php echo $monEntNom; ?> </td>
@@ -245,7 +247,8 @@
                                                     <td style="text-align:left;"> <?php echo $fecBoleta; ?> </td>
                                                     <td style="text-align:left;"> <?php echo substr($row02[2], 11, 8); ?> </td>
                                                     <td style="text-align:left;"> <?php echo $suc_key; ?> </td>
-                                                    <td style="text-align:left;"> <?php echo $estBoleta; ?> </td>
+                                                    <!--<td style="text-align:left;"> <?php //echo $estBoleta; ?> </td>-->
+                                                    <td style="text-align:left;"> <?php echo $row02[0]; ?> </td>
                                                     <td style="text-align:left;"> <?php echo $row02[3]; ?> </td>
                                                     <td style="text-align:left;"> <?php echo $tipOper; ?> </td>
                                                     <td style="text-align:left;"> <?php echo $monEntNom; ?> </td>
