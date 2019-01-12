@@ -50,6 +50,7 @@
                                                     <!--<th style="text-align:center;"> ID_PERSONA </th>-->
                                                     <th style="text-align:center;"> CODIGO </th>
                                                     <th style="text-align:center;"> CODIGO_UNICO </th>
+                                                    <th style="text-align:center;"> PAIS DOC. </th>
                                                     <th style="text-align:center;"> RUC </th>
                                                     <!--<th style="text-align:center;"> PASAPORTE </th>-->
                                                     <th style="text-align:center;"> NACIONALIDAD </th>
@@ -63,17 +64,17 @@
 <?php
     $item       = 0;
     $suc_array  = array(
-        "CASA MATRIZ"                   => "192.168.0.200:aliadocambios",
+        "CASA MATRIZ"               => "192.168.0.200:aliadocambios",
         "SUC. VILLA MORRA"          => "10.168.196.130:aliadocambios",
-        "AGE. SAN LORENZO"           => "10.168.191.130:aliadocambios",
+        "AGE. SAN LORENZO"          => "10.168.191.130:aliadocambios",
         "SUC. CIUDAD DEL ESTE"      => "10.168.192.138:aliadocambios",
-        "AGE. JEBAI"                 => "10.168.193.130:aliadocambios",
-        "AGE. LAI LAI"               => "10.168.194.130:aliadocambios",
-        "AGE. UNIAMERICA"            => "10.168.199.131:aliadocambios",
-        "AGE. RUBIO ÑU"              => "10.168.195.130:aliadocambios",
-        "AGE. KM4"                   => "10.168.190.130:aliadocambios",
+        "AGE. JEBAI"                => "10.168.193.130:aliadocambios",
+        "AGE. LAI LAI"              => "10.168.194.130:aliadocambios",
+        "AGE. UNIAMERICA"           => "10.168.199.131:aliadocambios",
+        "AGE. RUBIO ÑU"             => "10.168.195.130:aliadocambios",
+        "AGE. KM4"                  => "10.168.190.130:aliadocambios",
         "SUC. SALTO DEL GUAIRA"     => "10.168.198.130:aliadocambios",
-        "AGE. SALTO DEL GUAIRA"      => "10.168.197.130:aliadocambios",
+        "AGE. SALTO DEL GUAIRA"     => "10.168.197.130:aliadocambios",
         "SUC. ENCARNACION"          => "10.168.189.130:aliadocambios"
     );
 
@@ -82,10 +83,11 @@
         $str_user       = 'sysdba';
         $str_pass       = 'dorotea';
         $str_connect    = ibase_connect($str_db, $str_user, $str_pass) OR DIE("NO SE CONECTO AL SERVIDOR: ".ibase_errmsg());
-        $wSQL00 = ibase_query("SELECT t1.FECHA, t1.ID_PERSONA, t1.CODIGO, t1.CODIGO_UNICO, t1.RUC, t1.PASAPORTE, t1.ID_NACIONALIDAD, t2.DESCRIPCION, t1.ID_PAIS, t3.DESCRIPCION, t1.RAZONSOCIAL, t1.INGRESADOPOR, t1.AUTORIZADOPOR
+        $wSQL00 = ibase_query("SELECT t1.FECHA, t1.ID_PERSONA, t1.CODIGO, t1.CODIGO_UNICO, t1.RUC, t1.PASAPORTE, t1.ID_NACIONALIDAD, t2.DESCRIPCION, t1.ID_PAIS, t3.DESCRIPCION, t1.RAZONSOCIAL, t1.INGRESADOPOR, t1.AUTORIZADOPOR, t1.ID_PAIS_DOCUMENTO, t4.DESCRIPCION
                                 FROM PERSONAS t1
                                 LEFT JOIN NACIONALIDADES t2 ON t2.ID_NACIONALIDAD = t1.ID_NACIONALIDAD
                                 LEFT JOIN PAISES t3 ON t3.ID_PAIS = t1.ID_PAIS
+                                LEFT JOIN PAIS_DOCUMENTO t4 ON t4.ID_PAIS_DOCUMENTO = t1.ID_PAIS_DOCUMENTO
                                 WHERE t1.FECHA >= '$wFecha'
                                 ORDER BY t1.FECHA", $str_connect);
 
@@ -100,6 +102,7 @@
                                                     <!--<td style="text-align:left;"> <?php echo $row00[1]; ?> </td>-->
                                                     <td style="text-align:left;"> <?php echo $row00[2]; ?> </td>
                                                     <td style="text-align:left;"> <?php echo $row00[3]; ?> </td>
+                                                    <td style="text-align:left;"> <?php echo $row00[14]; ?> </td>
                                                     <td style="text-align:left;"> <?php echo $row00[4]; ?> </td>
                                                     <!--<td style="text-align:left;"> <?php echo $row00[5]; ?> </td>-->
                                                     <td style="text-align:left;"> <?php echo $row00[7]; ?> </td>

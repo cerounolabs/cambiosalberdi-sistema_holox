@@ -45,7 +45,7 @@
                                         <table id="exTable" class="table table-striped" border="1">
                                             <thead>
                                                 <tr valign="middle">
-                                                    <th colspan="6" style="text-align:center;"> DETALLE OPERACION </th>
+                                                    <th colspan="7" style="text-align:center;"> DETALLE OPERACION </th>
                                                     <th colspan="2" style="text-align:center;"> ENTRADA </th>
                                                     <th colspan="2" style="text-align:center;"> SALIDA </th>
                                                     <!--<th rowspan="2" style="text-align:center; vertical-align:middle !important;"> IMPORTE DOLARIZADO </th>-->
@@ -58,6 +58,7 @@
                                                     <th style="text-align:center;"> FECHA </th>
                                                     <th style="text-align:center;"> HORA </th>
                                                     <th style="text-align:center;"> SUCURSAL </th>
+                                                    <th style="text-align:center;"> ESTADO </th>
                                                     <th style="text-align:center;"> BOLETA </th>
                                                     <th style="text-align:center;"> TIPO </th>
                                                     <th style="text-align:center;"> MONEDA </th>
@@ -95,17 +96,17 @@
         $str_user       = 'sysdba';
         $str_pass       = 'dorotea';
         $str_connect    = ibase_connect($str_db, $str_user, $str_pass) OR DIE("NO SE CONECTO AL SERVIDOR: ".ibase_errmsg());
-        $wSQL00         = ibase_query("SELECT DISTINCT(t3.ID_TRANSACCION), t1.FECHATRANSACCION, t1.HORA, t1.ID_TRANSACCION, t1.ID_TIPOOPERACION, t2.CODMONEDA, t4.DESCRIPCION, t2.ID_TIPOESPECIE, t2.IMPORTEME, t2.IMPORTEMN, t2.IMPORTEMD, t2.TCAMBIOOPERADO, t2.PIZARRA, t5.ID_USUARIO, t5.DESCRIPCION, t3.ID_USUARIO, t6.DESCRIPCION
+        $wSQL00         = ibase_query("SELECT DISTINCT(t3.ID_TRANSACCION), t1.FECHATRANSACCION, t1.HORA, t1.ID_TRANSACCION, t1.ID_TIPOOPERACION, t2.CODMONEDA, t4.DESCRIPCION, t2.ID_TIPOESPECIE, t2.IMPORTEME, t2.IMPORTEMN, t2.IMPORTEMD, t2.TCAMBIOOPERADO, t2.PIZARRA, t5.ID_USUARIO, t5.DESCRIPCION, t3.ID_USUARIO, t6.DESCRIPCION, t1.ESTADO
                                         FROM TRANSACCIONES t1
                                         INNER JOIN TRANSACCIONESDETALLES t2 ON t1.ID_TRANSACCION = t2.ID_TRANSACCION
                                         INNER JOIN LOGAUTORIZACIONES t3 ON t1.ID_TRANSACCION = t3.ID_TRANSACCION
                                         INNER JOIN MONEDAS t4 ON t2.CODMONEDA = t4.CODIGO
                                         INNER JOIN USUARIOS t5 ON t1.ID_USUARIO_INSERTA = t5.ID_USUARIO
                                         INNER JOIN USUARIOS t6 ON t3.ID_USUARIO = t6.ID_USUARIO
-                                        WHERE t1.FECHATRANSACCION = '$wFecha' AND t1.ESTADO = 'L' AND  t1.ID_TIPOOPERACION IN (1, 2)  AND t2.TCAMBIOOPERADO <> t2.PIZARRA AND t2.ID_TIPOESPECIE = 1 AND t3.DESCRIPCION <> 'F10'
+                                        WHERE t1.FECHATRANSACCION = '$wFecha' AND t1.ESTADO IN ('L', 'P') AND  t1.ID_TIPOOPERACION IN (1, 2)  AND t2.TCAMBIOOPERADO <> t2.PIZARRA AND t2.ID_TIPOESPECIE = 1 AND t3.DESCRIPCION <> 'F10'
                                         ORDER BY  t1.ID_TIPOOPERACION", $str_connect);
         
-        $wSQL01         = ibase_query("SELECT DISTINCT(t3.ID_TRANSACCION), t1.FECHATRANSACCION, t1.HORA, t1.ID_TRANSACCION, t1.ID_TIPOOPERACION, t2.ID_TIPOESPECIE, t4.CODIGO, t4.DESCRIPCION, t2.IMPORTEME, t2.IMPORTEMN, t2.IMPORTEMD, t7.ID_TIPOESPECIE, t8.CODIGO, t8.DESCRIPCION, t7.IMPORTEME, t7.IMPORTEMN, t7.IMPORTEMD, t2.PARIDAD, t2.PIZARRA_PARIDAD, t5.ID_USUARIO, t5.DESCRIPCION, t3.ID_USUARIO, t6.DESCRIPCION
+        $wSQL01         = ibase_query("SELECT DISTINCT(t3.ID_TRANSACCION), t1.FECHATRANSACCION, t1.HORA, t1.ID_TRANSACCION, t1.ID_TIPOOPERACION, t2.ID_TIPOESPECIE, t4.CODIGO, t4.DESCRIPCION, t2.IMPORTEME, t2.IMPORTEMN, t2.IMPORTEMD, t7.ID_TIPOESPECIE, t8.CODIGO, t8.DESCRIPCION, t7.IMPORTEME, t7.IMPORTEMN, t7.IMPORTEMD, t2.PARIDAD, t2.PIZARRA_PARIDAD, t5.ID_USUARIO, t5.DESCRIPCION, t3.ID_USUARIO, t6.DESCRIPCION, t1.ESTADO
                                         FROM TRANSACCIONES t1
                                         INNER JOIN TRANSACCIONESDETALLES t2 ON t1.ID_TRANSACCION = t2.ID_TRANSACCION
                                         INNER JOIN LOGAUTORIZACIONES t3 ON t1.ID_TRANSACCION = t3.ID_TRANSACCION
@@ -114,13 +115,28 @@
                                         INNER JOIN USUARIOS t6 ON t3.ID_USUARIO = t6.ID_USUARIO
                                         INNER JOIN TRANSACCIONESDETALLES t7 ON t1.ID_TRANSACCION = t7.ID_TRANSACCION
                                         INNER JOIN MONEDAS t8 ON t7.CODMONEDA = t8.CODIGO
-                                        WHERE t1.FECHATRANSACCION = '$wFecha' AND t1.ESTADO = 'L' AND  t1.ID_TIPOOPERACION = 3 AND t2.TCAMBIOOPERADO <> t2.PIZARRA AND t2.ID_TIPOESPECIE = 1 AND t2.OP = 'C' AND t3.DESCRIPCION <> 'F10' AND t7.ID_TIPOESPECIE = 1 AND t7.OP = 'V'
+                                        WHERE t1.FECHATRANSACCION = '$wFecha' AND t1.ESTADO IN ('L', 'P') AND  t1.ID_TIPOOPERACION = 3 AND t2.TCAMBIOOPERADO <> t2.PIZARRA AND t2.ID_TIPOESPECIE = 1 AND t2.OP = 'C' AND t3.DESCRIPCION <> 'F10' AND t7.ID_TIPOESPECIE = 1 AND t7.OP = 'V'
                                         ORDER BY  t1.ID_TIPOOPERACION", $str_connect);
 
         while ($row00 = ibase_fetch_row($wSQL00)) {
             $item      = $item + 1;
             $difMejora = 0;
             $impMejora = 0;
+
+            switch ($row00[17]) {
+                case 'A':
+                    $estOper = 'ANULADO';
+                    break;
+    
+                case 'L':
+                    $estOper = 'LIQUIDADO';
+                    break;
+    
+                case 'P':
+                    $estOper = 'PENDIENTE';
+                    break;
+            }
+
             switch ($row00[4]) {
                 case 1:
                     $tipOper   = 'COMPRA';
@@ -156,6 +172,7 @@
                                                     <td style="text-align:left;"> <?php echo $tFecha; ?> </td>
                                                     <td style="text-align:left;"> <?php echo substr($row00[2], 11, 8); ?> </td>
                                                     <td style="text-align:left;"> <?php echo $suc_key; ?> </td>
+                                                    <td style="text-align:left;"> <?php echo $estOper; ?> </td>
                                                     <td style="text-align:left;"> <?php echo $row00[3]; ?> </td>
                                                     <td style="text-align:left;"> <?php echo $tipOper; ?> </td>
                                                     <td style="text-align:left;"> <?php echo $monEntNom; ?> </td>
@@ -184,6 +201,20 @@
             $monSalNom = $row01[13];
             $monSalImp = number_format($row01[14], 2, ',', '.');
 
+            switch ($row01[23]) {
+                case 'A':
+                    $estOper = 'ANULADO';
+                    break;
+    
+                case 'L':
+                    $estOper = 'LIQUIDADO';
+                    break;
+    
+                case 'P':
+                    $estOper = 'PENDIENTE';
+                    break;
+            }
+
             if ($difMejora < number_format(0, 5, ',', '.')) {
                 $estMejora = 'text-align:right; background-color:rgba(254, 204, 204, 0.5); color:#990000;';
                 $difMejora = $difMejora * -1;
@@ -196,6 +227,7 @@
                                                     <td style="text-align:left;"> <?php echo $tFecha; ?> </td>
                                                     <td style="text-align:left;"> <?php echo substr($row01[2], 11, 8); ?> </td>
                                                     <td style="text-align:left;"> <?php echo $suc_key; ?> </td>
+                                                    <td style="text-align:left;"> <?php echo $estOper; ?> </td>
                                                     <td style="text-align:left;"> <?php echo $row01[3]; ?> </td>
                                                     <td style="text-align:left;"> <?php echo $tipOper; ?> </td>
                                                     <td style="text-align:left;"> <?php echo $monEntNom; ?> </td>
