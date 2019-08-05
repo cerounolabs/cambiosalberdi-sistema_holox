@@ -4,7 +4,10 @@
     $wFecha     = date('Y/m/d');
     $tFecha     = date('d/m/Y');
     $wHora      = date('H:i:s');
-
+/*
+    $wFecha     = '2019/07/26';
+    $tFecha     = '26/07/2019';
+*/
     if (!isset($idSession) || ($wHora > date('19:00:00'))) {
         unset($idSession);
         header('Location: ../class/logout.php');
@@ -103,7 +106,7 @@
                                         INNER JOIN USUARIOS t5 ON t1.ID_USUARIO_INSERTA = t5.ID_USUARIO
                                         INNER JOIN USUARIOS t6 ON t1.ID_USUARIO_MODIFICA = t6.ID_USUARIO
                                         INNER JOIN PERSONAS t7 ON t1.ID_PERSONA = t7.ID_PERSONA
-                                        WHERE t1.FECHATRANSACCION = '$wFecha' AND t1.ESTADO = 'A' AND  t1.ID_TIPOOPERACION IN (1, 2)  AND t2.ID_TIPOESPECIE <> 6
+                                        WHERE t1.FECHATRANSACCION = '$wFecha' AND t1.ESTADO = 'A' AND  t1.ID_TIPOOPERACION IN (1, 2, 4)  AND t2.ID_TIPOESPECIE <> 6
                                         ORDER BY  t1.ID_TIPOOPERACION", $str_connect);
         
         $wSQL01         = ibase_query("SELECT t1.FECHATRANSACCION, t1.HORA, t1.NRO, t1.ID_TIPOOPERACION, t2.ID_TIPOESPECIE, t4.CODIGO, t4.DESCRIPCION, t2.IMPORTEME, t2.IMPORTEMN, t2.IMPORTEMD, t7.ID_TIPOESPECIE, t8.CODIGO, t8.DESCRIPCION, t7.IMPORTEME, t7.IMPORTEMN, t7.IMPORTEMD, t2.PARIDAD, t2.PIZARRA_PARIDAD, t5.ID_USUARIO, t5.DESCRIPCION, t1.ID_USUARIO_MODIFICA, t6.DESCRIPCION, t9.CODIGO_UNICO
