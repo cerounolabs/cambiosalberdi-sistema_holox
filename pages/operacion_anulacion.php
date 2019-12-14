@@ -5,8 +5,8 @@
     $tFecha     = date('d/m/Y');
     $wHora      = date('H:i:s');
 /*
-    $wFecha     = '2019/07/26';
-    $tFecha     = '26/07/2019';
+    $wFecha     = '2019/11/07';
+    $tFecha     = '07/11/2019';
 */
     if (!isset($idSession) || ($wHora > date('19:00:00'))) {
         unset($idSession);
