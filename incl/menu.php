@@ -150,6 +150,19 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link" aria-expanded="false" aria-controls="ui-basic">
+                        <span class="menu-title">Proveedores</span>
+                        <i class="menu-arrow"></i>
+                        <i class="mdi mdi-account menu-icon"></i>
+                    </a>
+                    <div class="collapse show">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="../pages/proveedor_liquidado.php">Pagos Liquidados</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link" href="../class/logout.php">
                         <span class="menu-title">Cerrar Sesi&oacute;n</span>
                         <i class="mdi mdi-power menu-icon"></i>
